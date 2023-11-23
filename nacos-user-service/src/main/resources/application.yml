@@ -1,0 +1,72 @@
+server:
+  port: 8206
+spring:
+  application:
+    name: nacos-user-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848 #配置Nacos地址
+    sentinel:
+      transport:
+        dashboard: localhost:8080 #配置sentinel dashboard地址
+        port: 8719
+      filter:
+        enabled: false
+
+      #和sentinel dashboard同步数据
+      datasource:
+        dsl:
+          nacos:
+            server-addr: localhost:8848
+            data-id: ${spring.application.name}-flow-rules
+            group-id: SENTINEL_GROUP
+            data-type: json
+            rule-type: flow
+
+        flow-rules:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-flow-rules
+            groupId: SENTINEL_GROUP   # 注意groupId对应Sentinel Dashboard中的定义
+            data-type: json
+            rule-type: flow
+
+        degrade-rules:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-degrade-rules
+            groupId: SENTINEL_GROUP
+            data-type: json
+            rule-type: degrade
+
+        param-flow-rules:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-param-flow-rules
+            groupId: SENTINEL_GROUP
+            data-type: json
+            rule-type: param-flow
+
+        authority-rules:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-authority-rules
+            groupId: SENTINEL_GROUP
+            data-type: json
+            rule-type: authority
+
+        system-rules:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-system-rules
+            groupId: SENTINEL_GROUP
+            data-type: json
+            rule-type: system
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
