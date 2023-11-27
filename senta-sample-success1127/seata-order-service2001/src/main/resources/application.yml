@@ -1,0 +1,70 @@
+server:
+  port: 2001
+
+spring:
+  application:
+    name: seata-order-service
+  cloud:
+    nacos:
+      # 注册中心
+      discovery:
+        server-addr: http://localhost:8848
+        #        username: nacos
+        #        password: nacos
+        group: SEATA_GROUP
+        namespace: b1edb8a7-54f3-4d94-aa22-c91b2b3c4c27
+      #不加这个配置会报错，需要进一步研究
+      config:
+        import-check:
+          enabled: false
+
+
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/seata_order?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: daoshu0908
+
+# springcloud Alibaba 2.1.+ 版本以后可以通过配置seata client连接并访问到nacos配置中心，之前需要script下的配置文件
+# Seata Client
+# Seata 配置
+seata:
+  application-id: seata-server
+  # 是否启用数据源bean的自动代理
+  enable-auto-data-source-proxy: false
+  tx-service-group: dev_tx_group  # 必须和服务器配置一样
+  registry:
+    type: nacos
+    nacos:
+      # Nacos 服务地址
+      server-addr: http://localhost:8848
+      group: SEATA_GROUP
+      namespace: b1edb8a7-54f3-4d94-aa22-c91b2b3c4c27
+      application: seata-server # 必须和服务器配置一样
+      username: nacos
+      password: nacos
+      cluster: default
+  config:
+    type: nacos
+    nacos:
+      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      group: SEATA_GROUP
+      namespace: b1edb8a7-54f3-4d94-aa22-c91b2b3c4c27
+  service:
+    vgroup-mapping:
+      tx-service-group: dev_tx_group # 必须和服务器配置一样
+    disable-global-transaction: false
+  client:
+    rm:
+      # 是否上报成功状态
+      report-success-enable: true
+      # 重试次数
+      report-retry-count: 5
+
+
+# 日志
+logging:
+  level:
+    io:
+      seata: info
