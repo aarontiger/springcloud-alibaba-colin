@@ -1,0 +1,98 @@
+server:
+  port: 9999
+# 网关配置
+spring:
+  application:
+    name: mysql-gateway-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848  # nacos的地址，端口默认是8848(注册)
+      config:   #config
+        server-addr: 127.0.0.1:8848 # 配置中心地址
+        file-extension: yaml            # 配置文件的后缀
+        prefix: mysql-gateway-server       # 配置文件的前缀
+    gateway:
+      routes:
+      - id: order-server-route
+        uri: lb://mysql-order-service  #服务名称
+        predicates: #断言
+        - Path=/orderlist/**,/order/**  #匹配路径
+
+      - id: product-server-route
+        uri: lb://mysql-product-service  #服务名称
+        predicates: #断言
+        - Path=/productlist/**,/product/**  #匹配路径
+
+      - id: user-server-route
+        uri: lb://mysql-user-service  #服务名称
+        predicates: #断言
+        - Path=/login,/logout,/user/**  #匹配路径
+
+      - id: promotion-server-route
+        uri: lb://mysql-promotion-service  #服务名称
+        predicates: #断言
+        - Path=/promotionadlist/**,/promotionspacelist/**,/promotionad/**,/promotionspace/**,/upload  #匹配路径
+
+      globalcors:
+        cors-configurations: # 跨域配置
+          '[/**]': # 匹配所有路径
+            allowed-origins: # 允许的域名
+              - "http://localhost:8080"
+            allowed-headers: "*" # 允许的请求头
+            allowed-methods: "*" # 允许的方法
+            allow-credentials: true # 是否携带cookie
+  profiles:
+    active: dev
+
+
+#eureka:
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    serviceUrl:
+#      defaultZone: http://127.0.0.1:8888/eureka/
+#
+## 网关配置
+#spring:
+#  application:
+#    name: mysql-gateway-server
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 127.0.0.1:8848  # nacos的地址，端口默认是8848
+#    gateway:
+#      routes:
+#      - id: order-server-route
+#        uri: lb://mysql-order-service  #服务名称
+#        predicates: #断言
+#        - Path=/orderlist/**,/order/**  #匹配路径
+#
+#      - id: product-server-route
+#        uri: lb://mysql-product-service  #服务名称
+#        predicates: #断言
+#        - Path=/productlist/**,/product/**  #匹配路径
+#
+#      - id: user-server-route
+#        uri: lb://mysql-user-service  #服务名称
+#        predicates: #断言
+#        - Path=/login,/logout,/user/**  #匹配路径
+#
+#      - id: promotion-server-route
+#        uri: lb://mysql-promotion-service  #服务名称
+#        predicates: #断言
+#        - Path=/promotionadlist/**,/promotionspacelist/**,/promotionad/**,/promotionspace/**,/upload  #匹配路径
+#
+#      globalcors:
+#        cors-configurations: # 跨域配置
+#          '[/**]': # 匹配所有路径
+#            allowed-origins: # 允许的域名
+#              - "http://localhost:8080"
+#            allowed-headers: "*" # 允许的请求头
+#            allowed-methods: "*" # 允许的方法
+#            allow-credentials: true # 是否携带cookie
+#
+user:
+  white-list: # 白名单
+    - /login
+    - /logout
