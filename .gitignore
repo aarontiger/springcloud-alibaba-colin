@@ -1,0 +1,15 @@
+/gateway/.idea/
+/gateway/target/classes/
+/nacos-user-service/.idea/
+/.idea/
+
+/senta-sample-success1127/.idea/
+#/senta-sample-success1127/seata-account-service2003/target
+#/senta-sample-success1127/seata-order-service2001/target
+#/senta-sample-success1127/seata-storage-service2002/target
+
+
+/gateway-user-auth/.idea/
+**/target/**
+**/.idea/**
+*.iml
