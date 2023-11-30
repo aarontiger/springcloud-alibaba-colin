@@ -5,18 +5,18 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.7.RELEASE</version>
+        <version>2.6.11</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.macro.cloud</groupId>
     <artifactId>nacos-user-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>nacos-order-service</name>
+    <name>nacos-user-service</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
         <java.version>1.8</java.version>
-        <spring-cloud.version>Greenwich.SR2</spring-cloud.version>
+        <spring-cloud.version>2021.0.4</spring-cloud.version>
     </properties>
 
     <dependencies>
@@ -68,7 +68,7 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>2.1.1.RELEASE</version>
+                <version>2021.0.4.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

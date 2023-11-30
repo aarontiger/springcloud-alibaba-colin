@@ -1,11 +1,15 @@
-package com.macro.cloud.authrule;
+package com.macro.cloud.sentinel;
 
-import com.alibaba.csp.sentinel.adapter.servlet.callback.RequestOriginParser;
-import org.apache.commons.lang.StringUtils;
+
+
+import com.alibaba.cloud.commons.lang.StringUtils;
+import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.RequestOriginParser;
+
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
+//授权规则配置时使用,目前采用header方式，也可以采用parameter方式
 @Component
 public class GetParseOriginFromHeader implements RequestOriginParser {
      /**

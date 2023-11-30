@@ -20,14 +20,16 @@ public class OrderController3 {
 
 
     @RequestMapping("/order/message2") public String message2() {
-    orderServiceImpl3.message(); return "message2";
+        orderServiceImpl3.message();
+        return "message2";
     }
 
+    //测试异常比例和异常数测试
     int i = 0;
     @RequestMapping("/order/message3")
-    public String message3() {
+    public String testExceptionRatioOrTotal() {
         i++;
-//异常比例为0.333
+        //异常比例为0.333
         if (i % 3 == 0){
             throw new RuntimeException();
         }
